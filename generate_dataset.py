@@ -59,8 +59,18 @@ def main():
 		
 	for i in range(num_rec):
 		record=''
+		
 		for rec in record_type:
-			record= record+getData(rec[1],rec[2],rec[3])+delimiter
+			data = ''
+			startAt = 1
+			if rec[1] == 'IDENTITY':
+				if rec[3].isnumeric():
+					startAt = int(rec[3])
+				data = startAt + i
+			else:
+				data = getData(rec[1],rec[2],rec[3])
+			record= record+str(data)+delimiter
+
 		record=record[:len(record)-1]+"\n"
 		feed_file.write(record)
 
